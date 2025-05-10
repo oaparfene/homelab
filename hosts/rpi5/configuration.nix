@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -10,22 +10,26 @@
   raspberry-pi-nix = {
     board = "bcm2712";
     kernel-version = "v6_12_17";
-    uboot.enable = false;
+    uboot.enable = true;
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi5;  # Provided by raspberry-pi-nix overlay
+    # kernelPackages = pkgs.linuxPackages_rpi5;  # Provided by raspberry-pi-nix overlay
     loader = {
       efi = {
         canTouchEfiVariables = false;
         efiSysMountPoint = "/boot/firmware";
       };
       grub = {
-        enable = lib.mkForce true;
-        device = "nodev";
-        efiSupport = true;
-        efiInstallAsRemovable = true;
+        enable = false;
+        # device = "nodev";
+        # efiSupport = true;
+        # efiInstallAsRemovable = true;
       };
+      
+      # Disable conflicting bootloaders
+        generic-extlinux-compatible.enable = lib.mkForce true;  # Disable extlinux
+        initScript.enable = lib.mkForce false;                   # Disable init script bootloader
     };
   };
 
@@ -45,4 +49,5 @@
   };
   nixpkgs.hostPlatform = "aarch64-linux";
 
+  system.stateVersion = "24.11";
 }

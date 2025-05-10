@@ -28,9 +28,10 @@
     {
       nixosConfigurations.rpi5 = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = { inherit pkgs; };  # Pass the overlaid pkgs
         modules = [
           raspberry-pi-nix.nixosModules.raspberry-pi
-          raspberry-pi-nix.nixosModules.sd-image
+        #   raspberry-pi-nix.nixosModules.sd-image
           ./configuration.nix
         ];
       };

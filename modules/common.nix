@@ -33,7 +33,6 @@
     git
     wget
     ghostty
-    vscode
   ];
 
   # Allow unfree packages
