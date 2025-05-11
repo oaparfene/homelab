@@ -13,6 +13,15 @@
     uboot.enable = true;
   };
 
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.rpi-kernels."v6_12_17"."bcm2712".override {
+    structuredExtraConfig = with pkgs.lib.kernel; {
+      CONFIG_SCSI_BNX2FC = no;  # Example: disable SCSI fibre channel
+      CONFIG_DRM_AMDGPU = no;   # Disable AMD GPU drivers
+      CONFIG_IPV6 = no;         # Disable IPv6 if not needed
+      # Add other unneeded modules here
+    };
+  });
+
   boot = {
     # kernelPackages = pkgs.linuxPackages_rpi5;  # Provided by raspberry-pi-nix overlay
     loader = {
