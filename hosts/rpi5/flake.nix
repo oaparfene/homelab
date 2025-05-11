@@ -21,8 +21,9 @@
         ];
       };
       edk2 = pkgs.fetchzip {
-        url = "https://github.com/pftf/RPi5_UEFI/releases/download/v1.1/RPi5_UEFI_Release_v1.1.zip";
-        sha256 = "sha256-ABnfxLMtY8E5KqJkrtIlPB4ML7CSFvjizCabv7i7SbU="; # is the actual hash
+        url = "https://github.com/worproject/rpi5-uefi/releases/download/v0.3/RPi5_UEFI_Release_v0.3.zip";
+        sha256 = "sha256-bjEvq7KlEFANnFVL0LyexXEeoXj7rHGnwQpq09PhIb0="; # is the actual hash
+        stripRoot = false;
       };
     in
     {
